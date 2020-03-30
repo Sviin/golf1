@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+	<div class="col-md-4">
+	<h1>Register new user</h1>
+	</div>
+	<div>
+		<form th:object="${registerUser}" th:action="@{saveUser}" action="#" method="post"class="form form-striped">
+		
+		<p><label for="Etunimi">First name</label>
+		<input type="text" id="firstName" th:field="*{firstName}"/></p>
+		<p><label for="Sukunimi">Last name</label>
+		<input type="text" id="lastName" th:field="*{lastName}" /></p>
+		
+		<p><b>Username and password</b></p>
+		
+		<p><label>Account username
+		<input type="text" th:field="*{username}"/></label>
+		<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
+		
+		<p><label for="password">Account password</label> 
+		<input type="text" id="password" th:field="*{password}" /></p>
+		
+		<p><label>Verify password: 
+		<input type="text" th:field="*{pwdcheck}"/></label></p>
+		<p th:if="${#fields.hasErrors('pwdcheck')}" th:errors="*{pwdcheck}">Password Match Error</p>
+	
+		<p><label for="roles">Role</label> 
+			<select id="roles" th:field="*{role}">
+				<option value="user">user</option>
+ 				<option value="admin">admin</option>
+  			</select></p>
+		
+			<p><input type="submit" class="btn btn-primary" value="Register"></p>
+		</form>
+	</div>
+
+</div>  
+</body>
+</html>

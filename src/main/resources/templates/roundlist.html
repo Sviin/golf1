@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Roundlist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+	<div class="col-md-4">
+		<h1>Rounds</h1>
+	</div>
+	<div class="col-md-4">
+		<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+	</div>
+	<div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		</form>
+	</div>
+    <table class="table table-striped">
+		<tr>
+		    <th>Score</th>
+		    <th>Putts</th>
+		    <th>GIR</th>
+		    <th>Fairways</th>
+		    <th>Course</th>
+		    <th>Par</th>
+		    <th sec:authorize="hasAuthority('ADMIN')"> </th>
+		</tr>  
+    	<tr th:each = "round : ${rounds}">
+    		<td th:text="${round.score}"></td>
+    		<td th:text="${round.putts}"></td>
+    		<td th:text="${round.gir}"></td>
+    		<td th:text="${round.fh}"></td>
+    		<td th:text="${round.course.name}"></td>
+    		<td th:text="${round.course.par}"></td>  		
+ 			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${round.id})}" class="btn btn-xs btn-danger">Delete</a></td>    		
+    	</tr>
+     </table>
+	 <a href="/add" class="btn btn-primary">Add Round</a>
+	 <a sec:authorize="hasAuthority('ADMIN')" href="/addCourse" class="btn btn-primary">Add Course</a>
+</div>    	
+</body>
+</html>

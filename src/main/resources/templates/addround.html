@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Roundlist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<h1>Add round</h1>
+	<div class="container">
+		<div class="col-md-4">
+		<form th:object="${round}" th:action="@{save}" action="#" method="post">
+		  	<label for="score">Score</label>
+			<input type="text" id="score" th:field="*{score}" class="form-control"/>
+			<div style="clear: both; display: block; height: 10px;"></div>
+		  	<label for="putts">Putts</label>
+			<input type="text" id="putts" th:field="*{putts}" class="form-control"/>
+			<div style="clear: both; display: block; height: 10px;"></div>
+		  	<label for="gir">GIR</label>
+			<input type="text" th:field="*{gir}" class="form-control"/>
+
+			<div style="clear: both; display: block; height: 10px;"></div>	
+			<label for="fh">Fairways</label>
+			<input type="text" th:field="*{fh}" class="form-control"/>
+
+			<div style="clear: both; display: block; height: 10px;"></div>					
+		  	<label for="courselist">Course</label>
+			 <select id="courselist" th:field="*{course}" class="form-control">
+       			<option th:each="course: ${courses}" th:value="${course.courseid}" th:text="${course.name}"></option>
+    		</select>
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" class="btn btn-primary" value="Save"></input>
+		</form>
+		</div>
+	</div>
+</body>
+</html>
