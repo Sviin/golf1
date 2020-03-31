@@ -23,9 +23,9 @@ public class GolfApplication {
 		SpringApplication.run(GolfApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner roundDemo(RoundRepository repository, CourseRepository crepository, UserRepository urepository) {
+	public CommandLineRunner roundDemo(RoundRepository repository, CourseRepository crepository, UserRepository userRepository) {
 		return (args) -> {
-			log.info("save corses to H2-database");
+			log.info("save courses to H2-database");
 			crepository.save(new Course("Golf Talma Master", 72));
 			crepository.save(new Course("Golf Talma Laakso", 72));
 			crepository.save(new Course("Vuosaari", 72));
@@ -36,8 +36,8 @@ public class GolfApplication {
 			// Create users: admin/admin user/user
 			User user1 = new User("Joonas","Huttunen", "user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			User user2 = new User("Joonas","Huttunen","admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN");
-			urepository.save(user1);
-			urepository.save(user2);
+			userRepository.save(user1);
+			userRepository.save(user2);
 			
 			log.info("fetch all rounds");
 			for (Round round : repository.findAll()) {

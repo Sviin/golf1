@@ -26,47 +26,48 @@ public class RoundController {
 	@Autowired
 	private CourseRepository crepository; 
 	
-	// Show all students
+
     @RequestMapping(value="/login")
     public String login() {	
         return "login";
     }	
 	
-	// Show all students
+	// Show all rounds
     @RequestMapping(value="/roundlist")
     public String roundList(Model model) {	
         model.addAttribute("rounds", repository.findAll());
         return "roundlist";
     }
   
-	// RESTful service to get all students
+	// RESTful service to get all rounds
     @RequestMapping(value="/rounds")
     public @ResponseBody List<Round> roundListRest() {	
         return (List<Round>) repository.findAll();
     }    
-	// RESTful service to get all students
+	// RESTful service to get all courses
     @RequestMapping(value="/courses")
     public @ResponseBody List<Course> courseListRest() {	
         return (List<Course>) crepository.findAll();
     } 
 
-	// RESTful service to get student by id
+	// RESTful service to get round by id
     @RequestMapping(value="/round/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Round> findRoundRest(@PathVariable("id") Long roundId) {	
     	return repository.findById(roundId);
     }       
-	// RESTful service to get student by id
+	// RESTful service to get course by id
     @RequestMapping(value="/course/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Course> findCourseRest(@PathVariable("courseid") Long courseId) {	
     	return crepository.findById(courseId);
     } 
-    // Add new student
+    // Add new round
     @RequestMapping(value = "/add")
     public String addRound(Model model){
     	model.addAttribute("round", new Round());
     	model.addAttribute("courses", crepository.findAll());
         return "addround";
-    }   
+    }  
+    // Add new course
     @RequestMapping(value = "/addCourse")
     public String addCourse(Model model){
     	model.addAttribute("course", new Course());
@@ -87,7 +88,7 @@ public class RoundController {
         return "redirect:roundlist";
     }  
 
-    // Delete student
+    // Delete round
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteRound(@PathVariable("id") Long roundId, Model model) {
