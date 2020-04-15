@@ -34,7 +34,8 @@
     		<td th:text="${round.gir}"></td>
     		<td th:text="${round.fh}"></td>
     		<td th:text="${round.course.name}"></td>
-    		<td th:text="${round.course.par}"></td>  		
+    		<td th:text="${round.course.par}"></td>
+    		<td><a th:href="@{/edit/{id}(id=${round.id})}" class="btn btn-xs btn-info">Edit</a></td>   		
  			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${round.id})}" class="btn btn-xs btn-danger">Delete</a></td>    		
     	</tr>
      </table>

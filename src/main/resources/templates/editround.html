@@ -6,10 +6,11 @@
 	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
 </head>
 <body>
-	<h1>Add round</h1>
+	<h1>Edit round</h1>
 	<div class="container">
 		<div class="col-md-4">
-		<form th:object="${round}" th:action="@{save}" action="#" method="post">
+		<form th:object="${round}" th:action="@{../save}" action="#" method="post">
+			<input type="hidden" id="id" th:field="*{id}" />
 		  	<label for="score">Score</label>
 			<input type="text" id="score" th:field="*{score}" class="form-control"/>
 			<span th:if="${#fields.hasErrors('score')}" th:errors="*{score}">Score error</span>

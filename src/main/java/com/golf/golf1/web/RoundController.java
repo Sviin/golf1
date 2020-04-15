@@ -3,19 +3,26 @@ package com.golf.golf1.web;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.golf.golf1.domain.Course;
 import com.golf.golf1.domain.CourseRepository;
 import com.golf.golf1.domain.Round;
 import com.golf.golf1.domain.RoundRepository;
+
 
 
 @Controller
@@ -30,7 +37,9 @@ public class RoundController {
     @RequestMapping(value="/login")
     public String login() {	
         return "login";
-    }	
+    }
+
+ 
 	
 	// Show all rounds
     @RequestMapping(value="/roundlist")
@@ -75,12 +84,22 @@ public class RoundController {
         return "addcourse";
     } 
 
-    // Save new round
+//     Save new round
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Round round){
         repository.save(round);
         return "redirect:roundlist";
     } 
+//    @RequestMapping(value="/save", method=RequestMethod.POST)
+//    public String save(@Valid Round score, BindingResult bindingResult, Model model) {
+//        if (bindingResult.hasErrors()) {
+//        	return "error";
+//        }
+//        
+//    	model.addAttribute("round", score);
+//        return "roundlist";
+//    }
+
     // Save new course
     @RequestMapping(value = "/saveCourse", method = RequestMethod.POST)
     public String save(Course course){
@@ -94,5 +113,12 @@ public class RoundController {
     public String deleteRound(@PathVariable("id") Long roundId, Model model) {
     	repository.deleteById(roundId);
         return "redirect:../roundlist";
-    }     
+    }  
+    // Edit round
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editRound(@PathVariable("id") Long roundId, Model model) {
+    	model.addAttribute("round", repository.findById(roundId));
+    	model.addAttribute("courses", crepository.findAll());
+    	return "editround";
+    }   
 }
