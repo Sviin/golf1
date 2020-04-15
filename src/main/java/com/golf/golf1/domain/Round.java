@@ -6,10 +6,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 
 
 
@@ -18,13 +21,21 @@ public class Round {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-//    @NotBlank	
+    @NotNull
+    @Min(54)
+    @Max(120)
     private int score;
-   
+    @NotNull
+    @Min(18)
+    @Max(54)
     private int putts;
-   
+    @NotNull
+    @Min(0)
+    @Max(18)
     private int gir;
-   
+    @NotNull
+    @Min(0)
+    @Max(16)
     private int fh;
     @ManyToOne
     @JsonIgnore

@@ -86,10 +86,15 @@ public class RoundController {
 
 //     Save new round
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Round round){
-        repository.save(round);
+    public String save(@Valid Round round, BindingResult bindingResult){
+    	if (bindingResult.hasErrors()) {
+			return "redirect:error";
+		}
+
+    	repository.save(round);
         return "redirect:roundlist";
-    } 
+	}
+  
 //    @RequestMapping(value="/save", method=RequestMethod.POST)
 //    public String save(@Valid Round score, BindingResult bindingResult, Model model) {
 //        if (bindingResult.hasErrors()) {
