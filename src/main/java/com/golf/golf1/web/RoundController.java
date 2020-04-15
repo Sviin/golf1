@@ -88,7 +88,7 @@ public class RoundController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@Valid Round round, BindingResult bindingResult){
     	if (bindingResult.hasErrors()) {
-			return "redirect:error1";
+			return "redirect:error";
 		}
 
     	repository.save(round);
